@@ -1,5 +1,5 @@
 package sample.shop.domain;
 
 public enum DeliveryStatus {
-    READY, COMPLETE
+    READY, IN_TRANSIT, COMPLETE
 }

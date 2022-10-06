@@ -1,12 +1,16 @@
 package sample.shop.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+import static lombok.AccessLevel.PROTECTED;
+
 @Getter
 @Entity
+@NoArgsConstructor(access = PROTECTED)
 public class Image extends BaseEntity{
 
     @Id
@@ -18,5 +22,12 @@ public class Image extends BaseEntity{
     @Column(nullable = false)
     //private Blob image
     private byte[] image;
+
+    public static Image createImage(byte[] image) {
+        Image file = new Image();
+        file.image = image;
+
+        return file;
+    }
 
 }

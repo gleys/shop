@@ -1,6 +1,8 @@
 package sample.shop.domain;
 
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,9 +10,11 @@ import java.util.List;
 import java.util.UUID;
 
 import static javax.persistence.FetchType.LAZY;
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = PROTECTED)
 public class Category extends BaseEntity {
 
     @Id
@@ -27,12 +31,21 @@ public class Category extends BaseEntity {
 
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
-//
-//    //연관관계 메소드
-//    public void addChildCategory(Category child) {
-//        this.child.add(child);
-//        child.setParent(this);
-//    }
+
+    public Category(String name) {
+        this.name = name;
+    }
+
+    //연관관계 메소드
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.parent = this;
+    }
+
+    public void setParentCategory(Category parent) {
+        this.parent = parent;
+        parent.child.add(this);
+    }
 
 
 }
